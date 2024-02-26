@@ -1,0 +1,17 @@
+{
+  "plugins": [],
+  "extends": ["next/core-web-vitals", "eslint:recommended", "next", "prettier"],
+  "rules": {
+    "prefer-const": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "no-undef": "off",
+        "no-unused-vars": "off",
+        "no-redeclare": "off"
+      }
+    }
+  ]
+}
