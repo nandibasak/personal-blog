@@ -4,8 +4,10 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 240 5% 96%;
     --foreground: 224 71.4% 4.1%;
+    --purple-color: 259 70% 16%;
+    --violet-color: 295 59% 20%;
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
@@ -54,6 +56,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground dark:text-zinc-200;
   }
 }
