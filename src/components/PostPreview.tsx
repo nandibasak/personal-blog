@@ -1,4 +1,5 @@
-import { posts } from '@/data/posts';
+import { Post } from '@/types/post.types';
+
 import { format } from 'date-fns';
 
 import { CalendarIcon } from '@radix-ui/react-icons';
@@ -6,7 +7,7 @@ import { AspectRatio } from './ui/aspect-ratio';
 import Image from './ui/Image';
 
 type PostPreviewProps = {
-  post: (typeof posts)[number];
+  post: Post;
   priority?: boolean;
   thumbnail?: boolean;
 };
@@ -17,11 +18,12 @@ const PostPreview = ({ post, thumbnail = true, priority = false }: PostPreviewPr
       {thumbnail && (
         <AspectRatio ratio={3 / 1} className='relative'>
           <Image
-            src={post.image}
+            src={post.coverImg.url}
             alt={post.title}
+            mode='external'
             fill
             priority={priority}
-            className='h-full w-full rounded-md object-fill'
+            className='h-full w-full rounded-md object-cover shadow-lg shadow-zinc-400 dark:shadow-gray-900'
           />
         </AspectRatio>
       )}
@@ -38,7 +40,7 @@ const PostPreview = ({ post, thumbnail = true, priority = false }: PostPreviewPr
       </p>
 
       <p className='mt-4 line-clamp-2 text-sm text-zinc-700 dark:text-zinc-400'>
-        {post.description}
+        {post.excerpt.text}
       </p>
     </article>
   );

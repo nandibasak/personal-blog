@@ -11,7 +11,7 @@ const Brand = ({ className, ...props }: BrandProps) => {
     <Link
       {...props}
       href='/'
-      className={cn('cursor-pointer text-sm font-bold xs:text-base', className)}
+      className={cn('cursor-pointer text-sm font-semibold xs:text-base', className)}
     >
       <h1 className='my-0 text-base uppercase dark:text-zinc-200 sm:text-lg'>
         <span className='mr-[1.5px] text-rose-600 dark:text-rose-700'>Bit</span>

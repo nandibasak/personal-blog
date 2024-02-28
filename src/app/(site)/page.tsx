@@ -1,59 +1,47 @@
-import { posts } from '@/data/posts';
+import { Suspense } from 'react';
+import { getPost, getPosts } from '@/lib/gql/post';
 
-import FeaturedPost from '@/components/FeaturedPost';
-import TrendingPosts from '@/components/TrendingPosts';
-import PostPreview from '@/components/PostPreview';
-import GridWrapper from '@/components/GridWrapper';
 import { Separator } from '@/components/ui/separator';
+import GridWrapper from '@/components/GridWrapper';
+import FeaturedPostServer from '@/components/home/FeaturedPostServer';
+import TrendingPostsServer from '@/components/home/TrendingPostsServer';
+import PostsByCategoriesServer from '@/components/home/PostsByCategoriesServer';
 
 const HomePage = () => {
   return (
     <>
       <section className='grid grid-cols-1 gap-7 md:grid-cols-[2.5fr,1fr]'>
-        <FeaturedPost post={posts[1]} />
+        <Suspense fallback='loading...'>
+          <FeaturedPostServer
+            getFeaturedPost={async () => {
+              return getPost();
+            }}
+          />
+        </Suspense>
 
-        <TrendingPosts posts={posts.slice(0, 4)} />
+        <Suspense fallback='loading...'>
+          <TrendingPostsServer
+            getTrendingPosts={async () => {
+              return getPosts();
+            }}
+          />
+        </Suspense>
       </section>
 
       <div className='mt-28 space-y-16'>
         <section>
-          <span className='text-sm font-medium uppercase dark:text-zinc-400'>Hand-Picked</span>
-          <h1 className='my-0 w-fit text-3xl font-bold leading-loose text-rose-600'>
+          <span className='text-sm font-medium uppercase dark:text-zinc-300'>Hand-Picked</span>
+          <h1 className='my-0 w-fit text-2xl font-bold leading-loose text-rose-600'>
             Curated Posts
-            <Separator className='-mt-2 h-[0.5px] w-full' />
+            <Separator className='-mt-1 h-[0.5px] w-full' />
           </h1>
 
           <GridWrapper className='mt-8'>
-            {posts.map((post) => (
-              <PostPreview key={post.image} post={post} />
-            ))}
-          </GridWrapper>
-        </section>
-        <section>
-          <span className='text-sm font-medium uppercase dark:text-zinc-400'>Hand-Picked</span>
-          <h1 className='my-0 w-fit text-3xl font-bold leading-loose text-rose-600'>
-            Cyber Security
-            <Separator className='-mt-2 h-[0.5px] w-full' />
-          </h1>
-
-          <GridWrapper className='mt-8'>
-            {posts.map((post) => (
-              <PostPreview key={post.image} post={post} />
-            ))}
-          </GridWrapper>
-        </section>
-
-        <section>
-          <span className='text-sm font-medium uppercase dark:text-zinc-400'>Hand-Picked</span>
-          <h1 className='my-0 w-fit text-3xl font-bold leading-loose text-rose-600'>
-            Network Hacking
-            <Separator className='-mt-2 h-[0.5px] w-full' />
-          </h1>
-
-          <GridWrapper className='mt-8'>
-            {posts.map((post) => (
-              <PostPreview key={post.image} post={post} />
-            ))}
+            <PostsByCategoriesServer
+              getPosts={async () => {
+                return getPosts();
+              }}
+            />
           </GridWrapper>
         </section>
       </div>
