@@ -10,7 +10,7 @@ import PostsByCategoriesServer from '@/components/home/PostsByCategoriesServer';
 const HomePage = () => {
   return (
     <>
-      <section className='grid grid-cols-1 gap-7 md:grid-cols-[2.5fr,1fr]'>
+      <section className='grid grid-cols-1 gap-6 md:grid-cols-[2.5fr,1fr]'>
         <Suspense fallback='loading...'>
           <FeaturedPostServer
             getFeaturedPost={async () => {

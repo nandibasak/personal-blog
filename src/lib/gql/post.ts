@@ -1,5 +1,6 @@
 import { cache } from 'react';
 import { useCms } from '@/hooks/useCms';
+import { Post } from '@/types/post.types';
 
 import 'server-only';
 
@@ -28,7 +29,7 @@ export const getPosts = cache(async () => {
 
   const data = await useCms(query);
 
-  return data?.posts;
+  return data?.posts as Omit<Post, 'content'>[];
 });
 
 export const getPost = cache(async () => {
@@ -56,10 +57,10 @@ export const getPost = cache(async () => {
 
   const data = await useCms(query);
 
-  return data?.posts[0];
+  return data?.posts[0] as Omit<Post, 'content'>;
 });
 
-export const getPostByCategory = cache(async (category: string) => {
+export const getPostsByCategory = cache(async (category: string) => {
   const query = `
     query Posts {
       posts(where: { category_contains_some: "${category}" }) {
@@ -84,13 +85,14 @@ export const getPostByCategory = cache(async (category: string) => {
 
   const data = await useCms(query);
 
-  return data?.posts;
+  return data?.posts as Omit<Post, 'content'>[];
 });
 
-export const getPostBySlug = cache(async (slug: string) => {
-  const query = `
+export const getPostBySlug = cache(
+  async ({ category, slug }: { slug: string; category: string }) => {
+    const query = `
     query Posts {
-      posts(where: { slug: "${slug}" } ) {
+      posts(where: { category_contains_some: "${category}", slug: "${slug}" } ) {
         id
         isDownloadable
         publishDate
@@ -112,7 +114,8 @@ export const getPostBySlug = cache(async (slug: string) => {
     }
   `;
 
-  const data = await useCms(query);
+    const data = await useCms(query);
 
-  return data?.posts[0];
-});
+    return data?.posts[0] as Post;
+  }
+);

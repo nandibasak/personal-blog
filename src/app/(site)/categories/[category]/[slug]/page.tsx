@@ -4,16 +4,15 @@ import { getPostBySlug } from '@/lib/gql/post';
 type PostPageProps = {
   params: {
     slug: string;
+    category: string;
   };
 };
 
 const PostPage = ({ params }: PostPageProps) => {
-  const { slug } = params;
-
   return (
     <PostServer
       getPosts={async () => {
-        return getPostBySlug(slug);
+        return getPostBySlug(params);
       }}
     />
   );

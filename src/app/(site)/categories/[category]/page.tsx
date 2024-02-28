@@ -1,4 +1,4 @@
-import { getPostByCategory } from '@/lib/gql/post';
+import { getPostsByCategory } from '@/lib/gql/post';
 
 import CategoryServer from '@/components/categories/CategoryServer';
 
@@ -14,7 +14,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   return (
     <CategoryServer
       getPosts={async () => {
-        return getPostByCategory(category);
+        return getPostsByCategory(category);
       }}
     />
   );

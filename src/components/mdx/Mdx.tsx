@@ -9,7 +9,6 @@ import rehypeToc from 'rehype-toc';
 
 import { Button, ButtonProps } from '../ui/button';
 import Link from '../ui/Link';
-import MdxImage from './MdxImage';
 import Toc from './Toc';
 import { cn } from '@/lib/utils';
 
@@ -23,7 +22,7 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
   return (
     <article
       className={cn(
-        'prose prose-base dark:prose-invert prose-a:no-underline z-50 min-w-full',
+        'prose prose-base z-50 min-w-full dark:prose-invert prose-a:no-underline',
         className
       )}
     >
@@ -45,7 +44,7 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
                 // @ts-ignore
                 rehypePrettyCode,
                 {
-                  theme: 'github-dark',
+                  theme: 'material-theme-ocean',
                 },
               ],
               [
@@ -54,7 +53,7 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
                 {
                   headings: ['h1', 'h2', 'h3'],
                   cssClasses: {
-                    link: 'xs:text-base sm:text-sm font-semibold ',
+                    link: 'xs:text-base sm:text-sm font-semibold text-zinc-300 py-1 dark:text-zinc-300 ',
                   },
                 },
               ],
@@ -62,7 +61,10 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
           },
         }}
         components={{
-          Image: ({ src, ...props }) => src?.length && <MdxImage src={src} {...props} />,
+          img: ({ src, alt, className, ...props }) =>
+            (src && alt)?.length && (
+              <img className={cn('mx-auto rounded-md', className)} src={src} alt={alt} {...props} />
+            ),
           h1: ({ children, ...props }) => (
             <h1 className='text-3xl xs:text-4xl' {...props}>
               {children}

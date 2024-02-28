@@ -16,14 +16,14 @@ const PostServer = async ({ getPosts }: PostServerProps) => {
 
   if (!post) return notFound();
 
-  console.log(post.category);
-
   return (
     <>
-      <h1 className='mb-6 text-4xl font-bold xs:mb-8'>{post.title}</h1>
-      <p className='py-2 text-sm font-semibold leading-8 md:text-base'>{post.excerpt.text}</p>
+      <h1 className='mb-6 text-4xl font-bold xs:mb-10'>{post.title}</h1>
+      <p className='line-clamp-3 text-sm font-medium leading-relaxed md:text-base md:leading-relaxed'>
+        {post.excerpt.text}
+      </p>
 
-      <div className='mt-4 flex items-center justify-between'>
+      <div className='mt-6 flex items-center justify-between'>
         <p className='pb-4 pt-2 text-sm font-medium'>
           Published: {format(post.publishDate, 'MMM dd, yyyy')}
         </p>

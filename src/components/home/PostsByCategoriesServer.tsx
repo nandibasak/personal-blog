@@ -3,7 +3,7 @@ import { Post } from '@/types/post.types';
 import PostPreview from '../PostPreview';
 
 type PostsByCategoriesServerProps = {
-  getPosts: () => Promise<Post[]>;
+  getPosts: () => Promise<Omit<Post, 'content'>[]>;
 };
 
 const PostsByCategoriesServer = async ({ getPosts }: PostsByCategoriesServerProps) => {

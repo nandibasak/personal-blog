@@ -12,7 +12,25 @@ export const NAV_LINKS = [
     path: '/categories',
   },
   {
+    name: 'News',
+    path: '/news',
+  },
+];
+
+export const categories = [
+  {
+    name: 'Ethical Hacking',
+    path: 'ethical-hacking',
+    description: 'Lorem ipsum dolor sit amet consectetur.',
+  },
+  {
+    name: 'Coding',
+    path: 'coding',
+    description: 'Lorem ipsum dolor sit amet consectetur.',
+  },
+  {
     name: 'Tech Tips',
-    path: '/tech-tips',
+    path: 'tech-tips',
+    description: 'Lorem ipsum dolor sit amet consectetur.',
   },
 ];

@@ -10,11 +10,11 @@ type TrendingPostsProps = {
 const TrendingPosts = ({ posts }: TrendingPostsProps) => {
   return (
     <div className='space-y-2 md:space-y-0'>
-      <span className='text-xs font-medium uppercase dark:text-zinc-300'>This Week&apos;s</span>
+      <span className='text-xs font-medium uppercase dark:text-zinc-400'>This Week&apos;s</span>
       <h1 className='my-0 mt-1 text-xl font-semibold'>Popular Posts</h1>
 
       <div className='grid gap-x-4 sm:grid-cols-2 md:grid-cols-1'>
-        {posts.map((post) => (
+        {posts.slice(0, 4).map((post) => (
           <article
             key={post.id}
             className='relative mt-4 flex cursor-pointer gap-x-1.5 rounded-sm p-1 px-1.5 transition-colors hover:bg-zinc-300 dark:hover:bg-gray-900 sm:space-x-3'

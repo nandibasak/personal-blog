@@ -28,8 +28,8 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
         />
       </CardHeader>
 
-      <CardFooter className='relative z-10 mb-2 flex flex-col items-start backdrop:blur-lg'>
-        <h1 className='text-3xl font-bold leading-snug text-white sm:w-3/4 sm:text-4xl'>
+      <CardFooter className='relative z-10 mb-2 flex flex-col items-start'>
+        <h1 className='text-3xl font-bold leading-snug text-white shadow-2xl sm:w-3/4 sm:text-4xl'>
           {post.title}
         </h1>
         <p className='line-clamp-2 w-2/3 text-sm leading-loose text-zinc-200'>

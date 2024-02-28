@@ -7,7 +7,7 @@ import { AspectRatio } from './ui/aspect-ratio';
 import Image from './ui/Image';
 
 type PostPreviewProps = {
-  post: Post;
+  post: Omit<Post, 'content'>;
   priority?: boolean;
   thumbnail?: boolean;
 };
@@ -23,7 +23,7 @@ const PostPreview = ({ post, thumbnail = true, priority = false }: PostPreviewPr
             mode='external'
             fill
             priority={priority}
-            className='h-full w-full rounded-md object-cover shadow-lg shadow-zinc-400 dark:shadow-gray-900'
+            className='h-full w-full rounded-md object-fill shadow-lg shadow-zinc-400 dark:shadow-gray-900'
           />
         </AspectRatio>
       )}

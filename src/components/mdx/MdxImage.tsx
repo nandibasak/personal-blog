@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 type MdxImageProps = {
   alt?: string;
-} & Omit<ComponentProps<typeof Image>, 'alt'>;
+} & ComponentProps<typeof Image>;
 
 const MdxImage = ({ src, alt, className, ...props }: MdxImageProps) => {
   const mode = src.toString().startsWith('https') ? 'external' : 'local';
