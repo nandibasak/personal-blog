@@ -62,7 +62,7 @@ export const getPost = cache(async () => {
 export const getPostByCategory = cache(async (category: string) => {
   const query = `
     query Posts {
-      posts(where: { category_contains_some: "${category}" } ) {
+      posts(where: { category_contains_some: "${category}" }) {
         id
         isDownloadable
         isFeatured

@@ -16,6 +16,8 @@ const PostServer = async ({ getPosts }: PostServerProps) => {
 
   if (!post) return notFound();
 
+  console.log(post.category);
+
   return (
     <>
       <h1 className='mb-6 text-4xl font-bold xs:mb-8'>{post.title}</h1>

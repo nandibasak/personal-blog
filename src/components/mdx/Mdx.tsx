@@ -45,7 +45,7 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
                 // @ts-ignore
                 rehypePrettyCode,
                 {
-                  theme: 'github-light',
+                  theme: 'github-dark',
                 },
               ],
               [
@@ -80,7 +80,13 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
             </Button>
           ),
           nav: ({ children, className, ...props }) =>
-            className === 'toc' || showToc ? <Toc toc={children} /> : <></>,
+            className === 'toc' || showToc ? (
+              <Toc toc={children} />
+            ) : (
+              <nav className={className} {...props}>
+                {children}
+              </nav>
+            ),
           Button: ({ children, className, ...props }: ButtonProps) => (
             <Button {...props} className={className}>
               {children}
