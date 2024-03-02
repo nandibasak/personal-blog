@@ -3,7 +3,7 @@ import ThemeToggle from '../ThemeToggle';
 import Container from '../ui/Container';
 import Links from './Links';
 import MobileMenu from './MobileMenu';
-import Socials from './Socials';
+import Socials from './Search';
 
 const Navbar = () => {
   return (

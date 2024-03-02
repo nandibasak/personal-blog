@@ -1,10 +1,10 @@
 import { env } from '@/validations/env';
 
 export async function useCms(query: string) {
-  const res = await fetch(env.HYGRAPH_API_URL, {
+  const res = await fetch(env.NEXT_PUBLIC_HYGRAPH_API_URL, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${env.HYGRAPH_API_TOKEN}`,
+      Authorization: `Bearer ${env.NEXT_PUBLIC_HYGRAPH_API_TOKEN}`,
     },
     method: 'POST',
     body: JSON.stringify({ query }),

@@ -14,7 +14,7 @@ const CategoryPage = () => {
             { name: 'hacking', path: '' },
           ]
             .slice(0, 3)
-            .map(async ({ name, path }) => {
+            .map(async ({ name }) => {
               const posts = await getPostsByCategory(name.toLowerCase());
               return posts;
             });

@@ -1,8 +1,8 @@
 import { cache } from 'react';
 import { useCms } from '@/hooks/useCms';
-import { Post } from '@/types/post.types';
+import { Post, SearchResult } from '@/types/post.types';
 
-import 'server-only';
+// import 'server-only';
 
 export const getPosts = cache(async () => {
   const query = `
@@ -119,3 +119,28 @@ export const getPostBySlug = cache(
     return data?.posts[0] as Post;
   }
 );
+
+export const getPostsByTitle = cache(async (title: string) => {
+  const query = `
+    query Posts {
+      posts(where: { title_contains: "${title}" } ) {
+        id
+        publishDate
+        category
+        tag
+        slug
+        title
+        excerpt {
+          text
+        }
+        coverImg {
+          url
+        }
+      }
+    }
+  `;
+
+  const data = await useCms(query);
+
+  return data?.posts as SearchResult[];
+});

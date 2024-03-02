@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { ImageLoader } from '@/lib/loader';
 import NextImage, { ImageProps as NextImageProps } from 'next/image';
 import { Skeleton } from './skeleton';
 import { cn } from '@/lib/utils';
@@ -22,6 +23,7 @@ const Image = ({ mode = 'local', src, className, height, width, ...props }: Imag
         height={height}
         width={width}
         onLoad={() => setIsLoading(false)}
+        loader={(p) => ImageLoader({ ...p, mode })}
         className={cn(
           'opacity-100 transition-opacity duration-300',
           {

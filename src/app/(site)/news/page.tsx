@@ -1,14 +1,14 @@
 import { Separator } from '@/components/ui/separator';
 
-const TutorialsPage = () => {
+const NewsPage = () => {
   return (
     <div>
       <h1 className='w-fit text-4xl font-bold capitalize'>
-        Tutorials
+        Latest News
         <Separator className='mt-1.5 w-full' />
       </h1>
     </div>
   );
 };
 
-export default TutorialsPage;
+export default NewsPage;

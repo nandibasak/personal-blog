@@ -22,3 +22,5 @@ export type Post = {
 export type FeaturedPost = Omit<Post, 'content'>;
 
 export type TrendingPost = Omit<Post, 'content'>;
+
+export type SearchResult = Omit<Post, 'content' | 'isDownloadable' | 'author'>;

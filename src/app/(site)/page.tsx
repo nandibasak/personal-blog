@@ -1,11 +1,10 @@
 import { Suspense } from 'react';
-import { getPost, getPosts } from '@/lib/gql/post';
+import { getPost, getPosts, getPostsByCategory } from '@/lib/gql/post';
 
-import { Separator } from '@/components/ui/separator';
-import GridWrapper from '@/components/GridWrapper';
 import FeaturedPostServer from '@/components/home/FeaturedPostServer';
 import TrendingPostsServer from '@/components/home/TrendingPostsServer';
 import PostsByCategoriesServer from '@/components/home/PostsByCategoriesServer';
+import { categories } from '@/config/site-links';
 
 const HomePage = () => {
   return (
@@ -28,23 +27,21 @@ const HomePage = () => {
         </Suspense>
       </section>
 
-      <div className='mt-28 space-y-16'>
-        <section>
-          <span className='text-sm font-medium uppercase dark:text-zinc-300'>Hand-Picked</span>
-          <h1 className='my-0 w-fit text-2xl font-bold leading-loose text-rose-600'>
-            Curated Posts
-            <Separator className='-mt-1 h-[0.5px] w-full' />
-          </h1>
+      <section className='mt-28'>
+        <PostsByCategoriesServer
+          getPosts={async () => {
+            const postsPromise = [{ name: 'hacking' }, { name: 'tech' }]
+              .slice(0, 3)
+              .map(async ({ name }) => await getPostsByCategory(name));
 
-          <GridWrapper className='mt-8'>
-            <PostsByCategoriesServer
-              getPosts={async () => {
-                return getPosts();
-              }}
-            />
-          </GridWrapper>
-        </section>
-      </div>
+            const posts = (await Promise.all(postsPromise)).flat().map((post) => ({
+              post,
+              category: post.category,
+            }));
+            return posts;
+          }}
+        />
+      </section>
     </>
   );
 };
