@@ -11,11 +11,13 @@ const Accordion = AccordionPrimitive.Root;
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> & {
+    separatorClassName?: string;
+  }
+>(({ className, separatorClassName, children, ...props }, ref) => (
   <AccordionPrimitive.Item ref={ref} className={cn(className)} {...props}>
     {children}
-    <Separator className='h-[0.5px] w-full' />
+    <Separator className={cn('h-[0.5px] w-full', separatorClassName)} />
   </AccordionPrimitive.Item>
 ));
 AccordionItem.displayName = 'AccordionItem';

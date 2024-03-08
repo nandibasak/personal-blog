@@ -5,19 +5,24 @@ import { usePathname } from 'next/navigation';
 
 import Link from '../ui/Link';
 import { Button } from '../ui/button';
-import NavHoverCard from './NavHoverCard';
-import AuthorHoverCard from './AuthorHoverCard';
 import { cn } from '@/lib/utils';
+import MobileNavHoverCard from './MobileNavHoverCard';
+import MobileAuthorHoverCard from './MobileAuthorHoverCard';
 
-type LinksProps = {
+type MobileLinksProps = {
   className?: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Links = ({ className }: LinksProps) => {
+const MobileLinks = ({ className, setIsOpen }: MobileLinksProps) => {
   const pathname = usePathname();
 
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <ul className={cn('flex items-center gap-8', className)}>
+    <ul className={cn('flex w-full flex-col gap-8', className)}>
       {NAV_LINKS.map((link) => {
         const isActive = pathname === link.path;
         const isCategories = link.path === '/categories';
@@ -25,8 +30,8 @@ const Links = ({ className }: LinksProps) => {
 
         if (isCategories) {
           return (
-            <NavHoverCard key={link.path}>
-              <li>
+            <MobileNavHoverCard onClick={onClose} key={link.path}>
+              <li onClick={onClose}>
                 <Button
                   className={cn('px-0 hover:text-rose-600 dark:hover:text-rose-600', {
                     'text-rose-600 underline dark:text-rose-600': isActive,
@@ -35,19 +40,19 @@ const Links = ({ className }: LinksProps) => {
                   size='sm'
                   asChild
                 >
-                  <Link prefetch href={link.path} className='text-base sm:text-sm'>
+                  <Link prefetch href={link.path} className='text-lg xs:text-xl sm:text-sm'>
                     {link.name}
                   </Link>
                 </Button>
               </li>
-            </NavHoverCard>
+            </MobileNavHoverCard>
           );
         }
 
         if (isAuthor) {
           return (
-            <AuthorHoverCard key={link.path}>
-              <li>
+            <MobileAuthorHoverCard onClick={onClose} key={link.path}>
+              <li onClick={onClose}>
                 <Button
                   className={cn('px-0 hover:text-rose-600 dark:hover:text-rose-600', {
                     'text-rose-600 underline dark:text-rose-600': isActive,
@@ -56,17 +61,17 @@ const Links = ({ className }: LinksProps) => {
                   size='sm'
                   asChild
                 >
-                  <Link prefetch href={link.path} className='text-base sm:text-sm'>
+                  <Link prefetch href={link.path} className='text-lg xs:text-xl sm:text-sm'>
                     {link.name}
                   </Link>
                 </Button>
               </li>
-            </AuthorHoverCard>
+            </MobileAuthorHoverCard>
           );
         }
 
         return (
-          <li key={link.path}>
+          <li onClick={onClose} key={link.path}>
             <Button
               className={cn('px-0 hover:text-rose-600 dark:hover:text-rose-600', {
                 'text-rose-600 underline dark:text-rose-600': isActive,
@@ -75,7 +80,7 @@ const Links = ({ className }: LinksProps) => {
               size='sm'
               asChild
             >
-              <Link prefetch href={link.path} className='text-base sm:text-sm'>
+              <Link prefetch href={link.path} className='text-lg xs:text-xl sm:text-sm'>
                 {link.name}
               </Link>
             </Button>
@@ -86,4 +91,4 @@ const Links = ({ className }: LinksProps) => {
   );
 };
 
-export default Links;
+export default MobileLinks;

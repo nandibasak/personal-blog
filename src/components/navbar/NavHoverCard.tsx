@@ -2,19 +2,26 @@ import { categories } from '@/config/site-links';
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../ui/hover-card';
 import Link from '@/components/ui/Link';
+import { cn } from '@/lib/utils';
 
 type NavHoverCardProps = {
   children: React.ReactNode;
+  classNames?: {
+    trigger?: string;
+    content?: string;
+  };
 };
 
-const NavHoverCard = ({ children }: NavHoverCardProps) => {
+const NavHoverCard = ({ children, classNames }: NavHoverCardProps) => {
   return (
     <HoverCard openDelay={200} closeDelay={200}>
-      <HoverCardTrigger asChild>{children}</HoverCardTrigger>
+      <HoverCardTrigger className={cn(classNames?.trigger)} asChild>
+        {children}
+      </HoverCardTrigger>
       <HoverCardContent
         align='start'
         side='bottom'
-        className='grid w-full max-w-lg grid-cols-2 gap-2 p-3 py-2'
+        className={cn('grid w-full max-w-lg grid-cols-2 gap-2 p-3 py-2', classNames?.content)}
       >
         {categories.map((item, index) => (
           <Link

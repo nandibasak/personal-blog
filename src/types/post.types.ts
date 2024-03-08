@@ -3,6 +3,7 @@ export type Post = {
   isDownloadable: boolean;
   isFeatured: boolean;
   publishDate: string;
+  updatedAt: string;
   category: string[];
   tag: string[];
   slug: string;

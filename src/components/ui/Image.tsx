@@ -34,7 +34,9 @@ const Image = ({ mode = 'local', src, className, height, width, ...props }: Imag
         {...props}
       />
 
-      {isLoading && <Skeleton aria-disabled='true' className={cn('absolute left-0', className)} />}
+      {isLoading && (
+        <Skeleton aria-disabled='true' className={cn('absolute left-0 h-full w-full', className)} />
+      )}
     </>
   );
 };

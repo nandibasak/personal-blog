@@ -5,7 +5,7 @@ import remarkBreaks from 'remark-breaks';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import rehypePrettyCode from 'rehype-pretty-code';
-import rehypeToc from 'rehype-toc';
+import rehypeToc, { Options } from 'rehype-toc';
 
 import { Button, ButtonProps } from '../ui/button';
 import Link from '../ui/Link';
@@ -53,9 +53,9 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
                 {
                   headings: ['h1', 'h2', 'h3'],
                   cssClasses: {
-                    link: 'xs:text-base sm:text-sm font-semibold text-zinc-300 py-1 dark:text-zinc-300 ',
+                    link: 'xs:text-base sm:text-sm font-semibold text-zinc-800 py-1 dark:text-zinc-300 ',
                   },
-                },
+                } satisfies Options,
               ],
             ],
           },
@@ -63,7 +63,15 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
         components={{
           img: ({ src, alt, className, ...props }) =>
             (src && alt)?.length && (
-              <img className={cn('mx-auto rounded-md', className)} src={src} alt={alt} {...props} />
+              <img
+                className={cn(
+                  'mx-auto rounded-md shadow-lg shadow-zinc-400 dark:shadow-gray-900',
+                  className
+                )}
+                src={src}
+                alt={alt}
+                {...props}
+              />
             ),
           h1: ({ children, ...props }) => (
             <h1 className='text-3xl xs:text-4xl' {...props}>
@@ -73,13 +81,12 @@ const Mdx = ({ markdown, showToc, className }: MdxProps) => {
           p: ({ children, ...props }) =>
             typeof children === 'string' ? <p {...props}>{children}</p> : children,
           a: ({ children, href, className }) => (
-            <Button
-              variant='link'
-              className={cn('text- h-min p-0 dark:text-primary', className)}
-              asChild
+            <Link
+              href={href || ''}
+              className={cn('line-clamp-1 py-1 text-primary hover:underline', className)}
             >
-              <Link href={href || ''}>{children}</Link>
-            </Button>
+              {children}
+            </Link>
           ),
           nav: ({ children, className, ...props }) =>
             className === 'toc' || showToc ? (

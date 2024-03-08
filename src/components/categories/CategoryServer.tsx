@@ -18,7 +18,7 @@ const CategoryServer = async ({ getPosts }: CategoryServerProps) => {
 
   return (
     <div>
-      <h1 className='w-fit text-4xl font-bold capitalize'>
+      <h1 className='w-fit text-3xl font-bold capitalize xs:text-4xl'>
         {category}
         <Separator className='mt-1.5 w-full' />
       </h1>

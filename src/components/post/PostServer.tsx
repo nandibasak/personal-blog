@@ -6,6 +6,8 @@ import { Separator } from '../ui/separator';
 import Image from '../ui/Image';
 import { AspectRatio } from '../ui/aspect-ratio';
 import Mdx from '../mdx/Mdx';
+import SharePost from './SharePost';
+import getUrl from '@/lib/utils';
 
 type PostServerProps = {
   getPosts: () => Promise<Post>;
@@ -18,19 +20,21 @@ const PostServer = async ({ getPosts }: PostServerProps) => {
 
   return (
     <>
-      <h1 className='mb-6 text-4xl font-bold xs:mb-10'>{post.title}</h1>
-      <p className='line-clamp-3 text-sm font-medium leading-relaxed md:text-base md:leading-relaxed'>
+      <h1 className='mb-6 text-3xl font-bold leading-normal xs:mb-10 xs:text-4xl xs:leading-normal'>
+        {post.title}
+      </h1>
+      <p className='line-clamp-3 text-sm font-medium leading-relaxed xs:text-base sm:text-base md:leading-relaxed'>
         {post.excerpt.text}
       </p>
 
-      <div className='mt-6 flex items-center justify-between'>
-        <p className='pb-4 pt-2 text-sm font-medium'>
+      <div className='mt-6 flex w-full flex-col justify-between gap-4 sm:flex-row sm:items-center'>
+        <p className='pb-4 pt-2 text-xs font-medium xs:text-sm'>
           Published: {format(post.publishDate, 'MMM dd, yyyy')}
         </p>
 
         <Author
           name={post.author}
-          image='https://avatars.githubusercontent.com/soham-basak'
+          image='/favicon.ico'
           date={new Date(post.publishDate)}
           classNames={{
             name: 'text-black dark:text-white',
@@ -51,6 +55,15 @@ const PostServer = async ({ getPosts }: PostServerProps) => {
       </AspectRatio>
 
       <Mdx className='mt-12 font-medium dark:font-normal' markdown={post.content.markdown} />
+
+      <div className='mt-8'>
+        <Separator className='mt-1 h-[0.5px] w-full' />
+        <SharePost
+          className='mt-2'
+          text='Hey check out this post.'
+          url={getUrl(`/categories/${post.category[0]}/${post.slug}`)}
+        />
+      </div>
     </>
   );
 };

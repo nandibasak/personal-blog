@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { getPost, getPosts, getPostsByCategory } from '@/lib/gql/post';
+import { getFeaturedPost, getPosts, getPostsByCategory } from '@/lib/gql/post';
 
 import FeaturedPostServer from '@/components/home/FeaturedPostServer';
 import TrendingPostsServer from '@/components/home/TrendingPostsServer';
@@ -13,7 +13,7 @@ const HomePage = () => {
         <Suspense fallback='loading...'>
           <FeaturedPostServer
             getFeaturedPost={async () => {
-              return getPost();
+              return getFeaturedPost();
             }}
           />
         </Suspense>
@@ -21,7 +21,8 @@ const HomePage = () => {
         <Suspense fallback='loading...'>
           <TrendingPostsServer
             getTrendingPosts={async () => {
-              return getPosts();
+              const posts = await getPosts();
+              return posts;
             }}
           />
         </Suspense>
@@ -30,15 +31,15 @@ const HomePage = () => {
       <section className='mt-28'>
         <PostsByCategoriesServer
           getPosts={async () => {
-            const postsPromise = [{ name: 'hacking' }, { name: 'tech' }]
+            const postsPromise = categories
               .slice(0, 3)
-              .map(async ({ name }) => await getPostsByCategory(name));
+              .map(async ({ path }) => await getPostsByCategory(path.replace('/', '')));
 
-            const posts = (await Promise.all(postsPromise)).flat().map((post) => ({
-              post,
-              category: post.category,
-            }));
-            return posts;
+            const posts = (await Promise.all(postsPromise)).flat();
+            return {
+              categories: categories.slice(0, 3),
+              posts,
+            };
           }}
         />
       </section>

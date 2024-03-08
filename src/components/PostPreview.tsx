@@ -16,7 +16,7 @@ const PostPreview = ({ post, thumbnail = true, priority = false }: PostPreviewPr
   return (
     <article className='group flex cursor-pointer flex-col transition duration-300 hover:scale-[1.02]'>
       {thumbnail && (
-        <AspectRatio ratio={3 / 1} className='relative'>
+        <AspectRatio ratio={3 / 1.5} className='relative'>
           <Image
             src={post.coverImg.url}
             alt={post.title}

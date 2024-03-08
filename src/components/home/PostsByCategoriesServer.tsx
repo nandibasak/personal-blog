@@ -4,14 +4,14 @@ import { Separator } from '../ui/separator';
 import PostPreview from '../PostPreview';
 import GridWrapper from '../GridWrapper';
 import Link from '../ui/Link';
+import { Fragment } from 'react';
+import { cn } from '@/lib/utils';
 
 type PostsByCategoriesServerProps = {
-  getPosts: () => Promise<
-    {
-      post: Omit<Post, 'content'>;
-      category: string[];
-    }[]
-  >;
+  getPosts: () => Promise<{
+    posts: Omit<Post, 'content'>[];
+    categories: { name: string; path: string }[];
+  }>;
 };
 
 const PostsByCategoriesServer = async ({ getPosts }: PostsByCategoriesServerProps) => {
@@ -19,23 +19,35 @@ const PostsByCategoriesServer = async ({ getPosts }: PostsByCategoriesServerProp
 
   return (
     <>
-      {result.map(({ post, category }) => (
-        <div key={post.id} className='mt-20'>
-          <span className='text-sm font-medium uppercase dark:text-zinc-300'>Hand-Picked</span>
-          <h1 className='my-0 w-fit text-2xl font-bold capitalize leading-loose text-rose-600'>
-            {category}
-            <Separator className='-mt-1 h-[0.5px] w-full' />
-          </h1>
+      <div className='flex flex-col gap-y-2'>
+        {result.categories.map(({ path, name }, index) => {
+          const posts = result.posts
+            .filter((post) => post.category[0] === path.replace('/', ''))
+            .slice(0, 4);
 
-          <GridWrapper className='mt-8'>
-            <Link href={`/categories/${category}/${post.slug}`}>
-              <PostPreview post={post} />
-            </Link>
-          </GridWrapper>
-        </div>
-      ))}
+          return (
+            <Fragment key={path}>
+              <h1
+                className={cn('w-fit text-3xl font-bold capitalize xs:text-4xl', {
+                  'mt-24': index !== 0,
+                })}
+              >
+                {name}
+                <Separator className='mt-1.5 w-full' />
+              </h1>
+
+              <GridWrapper className='mt-8'>
+                {posts.map((post) => (
+                  <Link key={post.id} href={`/categories/${post.category}/${post.slug}`}>
+                    <PostPreview post={post} />
+                  </Link>
+                ))}
+              </GridWrapper>
+            </Fragment>
+          );
+        })}
+      </div>
     </>
   );
 };
-
 export default PostsByCategoriesServer;

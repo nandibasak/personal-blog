@@ -68,7 +68,7 @@ const Search = () => {
             {debouncedInput.length < 2 &&
               categories.map((category) => (
                 <Link
-                  className='mb-2 flex cursor-pointer flex-col gap-2 rounded-md p-2 px-2.5 transition-colors hover:bg-slate-900'
+                  className='mb-2 flex cursor-pointer flex-col gap-2 rounded-md p-2 px-2.5 transition-colors hover:bg-slate-300 dark:hover:bg-slate-900'
                   key={category.path}
                   href={`/categories${category.path}`}
                 >
@@ -83,19 +83,23 @@ const Search = () => {
               <>
                 {data?.map((post) => (
                   <Link
+                    onClick={() => setIsOpen(false)}
                     href={`/categories/${post.category}/${post.slug}`}
-                    className='flex cursor-pointer gap-4 rounded-md p-2 px-2.5 transition-colors hover:bg-slate-900'
+                    className='flex cursor-pointer items-center gap-4 rounded-md px-2.5 transition-colors hover:bg-slate-300 dark:hover:bg-slate-900'
                     key={post.id}
                   >
-                    <Image
-                      mode='external'
-                      src={post.coverImg.url}
-                      alt={post.title}
-                      height={45}
-                      width={45}
-                      className='rounded-sm'
-                    />
-                    <h1 className='text-base'>{post.title}</h1>
+                    <div className='relative h-[45px] w-[60px]'>
+                      <Image
+                        mode='external'
+                        src={post.coverImg.url}
+                        alt={post.title}
+                        fill
+                        className='h-full w-full rounded-sm'
+                      />
+                    </div>
+                    <h1 className='line-clamp-2 text-base text-black dark:text-zinc-200'>
+                      {post.title}
+                    </h1>
                   </Link>
                 ))}
               </>

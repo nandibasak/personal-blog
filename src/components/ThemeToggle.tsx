@@ -17,7 +17,7 @@ const ThemeToggle = () => {
 
   if (!isMounted) {
     return (
-      <Button className='h-8 w-8' variant='ghost' size='icon'>
+      <Button aria-disabled='true' className='h-8 w-8' variant='ghost' size='icon'>
         <Skeleton className='h-5 w-5 rounded-full xs:h-6 xs:w-6 sm:h-5 sm:w-5' />
       </Button>
     );
@@ -32,6 +32,7 @@ const ThemeToggle = () => {
               'scale-0': !isDark,
             })}
           />
+          <span className='sr-only'>Switch to light mode</span>
         </Button>
       ) : (
         <Button onClick={() => setTheme('dark')} className='h-8 w-8' variant='ghost' size='icon'>
@@ -40,6 +41,7 @@ const ThemeToggle = () => {
               'scale-0': isDark,
             })}
           />
+          <span className='sr-only'>Switch to dark mode</span>
         </Button>
       )}
     </>

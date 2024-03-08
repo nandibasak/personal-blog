@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 import { Cross1Icon, HamburgerMenuIcon } from '@radix-ui/react-icons';
-import Links from './Links';
 import { cn } from '@/lib/utils';
+import MobileLinks from './MobileLinks';
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -39,9 +39,10 @@ const MobileMenu = () => {
         )}
       />
 
-      <Links
+      <MobileLinks
+        setIsOpen={setIsOpen}
         className={cn(
-          'absolute left-0 top-16 ml-4 flex-col items-start gap-1.5 transition-all duration-300 sm:hidden',
+          'absolute left-0 top-16 flex-col items-start gap-1.5 px-4 transition-all duration-300 xs:gap-4 sm:hidden sm:gap-1.5',
           {
             '-left-[1000rem]': !isOpen,
           }
