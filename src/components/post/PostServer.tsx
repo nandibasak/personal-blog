@@ -1,13 +1,16 @@
 import { Post } from '@/types/post.types';
 import { format } from 'date-fns';
 import { notFound } from 'next/navigation';
-import Author from '../Author';
-import { Separator } from '../ui/separator';
-import Image from '../ui/Image';
+
 import { AspectRatio } from '../ui/aspect-ratio';
+import { Separator } from '../ui/separator';
+import Author from '../Author';
+import Image from '../ui/Image';
 import Mdx from '../mdx/Mdx';
 import SharePost from './SharePost';
 import getUrl from '@/lib/utils';
+import Comments from './Comments';
+import PostComment from './PostComment';
 
 type PostServerProps = {
   getPosts: () => Promise<Post>;
@@ -56,13 +59,18 @@ const PostServer = async ({ getPosts }: PostServerProps) => {
 
       <Mdx className='mt-12 font-medium dark:font-normal' markdown={post.content.markdown} />
 
-      <div className='mt-8'>
-        <Separator className='mt-1 h-[0.5px] w-full' />
+      <Separator className='mt-8 h-[0.5px] w-full' />
+
+      <div className='mt-2'>
         <SharePost
-          className='mt-2'
           text='Hey check out this post.'
           url={getUrl(`/categories/${post.category[0]}/${post.slug}`)}
         />
+      </div>
+
+      <div className='mt-10 space-y-8'>
+        <Comments postId={post.id} />
+        <PostComment postId={post.id} />
       </div>
     </>
   );

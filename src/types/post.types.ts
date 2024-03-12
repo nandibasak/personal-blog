@@ -25,3 +25,12 @@ export type FeaturedPost = Omit<Post, 'content'>;
 export type TrendingPost = Omit<Post, 'content'>;
 
 export type SearchResult = Omit<Post, 'content' | 'isDownloadable' | 'author'>;
+
+export type Comment = {
+  blogID: string;
+  userName: string;
+  commentText: string;
+  _id: string;
+  userID: string;
+  createdAt: string;
+};
